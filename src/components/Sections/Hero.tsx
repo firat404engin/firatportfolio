@@ -15,10 +15,10 @@ const Hero = () => {
 
   return (
     <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="mb-6 w-full">
+      <div className="container mx-auto px-4 max-w-[90%]">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <div className="mb-4 w-full">
               <CryptoTicker />
             </div>
             
@@ -26,9 +26,9 @@ const Hero = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, type: "spring", bounce: 0.3 }}
-              className="space-y-6"
+              className="space-y-4"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 relative">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4 relative">
                 <span className="absolute -inset-1 blur-2xl bg-gradient-to-r from-emerald-600/30 to-teal-500/30 animate-pulse"></span>
                 Merhaba, ben{' '}
                 <span className="relative inline-block">
@@ -42,14 +42,14 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed relative backdrop-blur-sm p-6 rounded-2xl bg-white/50 dark:bg-gray-900/50 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
+                className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed relative backdrop-blur-sm p-4 rounded-2xl bg-white/50 dark:bg-gray-900/50 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
               >
                 <span className="absolute -inset-1 blur-2xl bg-gradient-to-r from-emerald-600/10 to-teal-500/10"></span>
                 <span className="relative">
                   Karmaşık problemleri, basit, şık ve kullanıcı dostu çözümlere dönüştürüyorum.
                   <span className="font-medium text-emerald-600 dark:text-emerald-400"> Tıpkı bir Ayvalık tostu gibi: </span> 
                   doyurucu, lezzetli ve akılda kalıcı işler üretmeye odaklıyım! 
-                  <span className="block mt-2 italic text-gray-500 dark:text-gray-400">
+                  <span className="block mt-2 italic text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                     (Bu kişisel sitem, biraz fantezi, biraz da kodlamaya dair tutkumun karışımı. 
                     <span className="inline-block animate-bounce">🚀</span> Tadı damağınızda kalacak!)
                   </span>
@@ -67,18 +67,18 @@ const Hero = () => {
                 }
               `}</style>
 
-              <div className="flex flex-wrap gap-6 pt-8">
+              <div className="flex flex-wrap gap-4 pt-6">
                 <motion.a
                   href="#contact"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-8 py-3 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25"
+                  className="group relative flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-5 py-2 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25 text-sm"
                 >
                   <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></span>
                   <span className="relative flex items-center gap-2">
-                    <FaEnvelope className="w-5 h-5 animate-pulse" />
+                    <FaEnvelope className="w-3 h-3 animate-pulse" />
                     <span>İletişime Geç</span>
-                    <RiSparkling2Fill className="w-4 h-4 text-yellow-300 animate-bounce" />
+                    <RiSparkling2Fill className="w-3 h-3 text-yellow-300 animate-bounce" />
                   </span>
                 </motion.a>
                 
@@ -90,13 +90,13 @@ const Hero = () => {
                   whileTap={{ scale: 0.95 }}
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
-                  className="group relative flex items-center gap-2 border-2 border-emerald-600 dark:border-emerald-500 text-emerald-600 dark:text-emerald-500 px-8 py-3 rounded-xl hover:text-white transition-all duration-300"
+                  className="group relative flex items-center gap-2 border-2 border-emerald-600 dark:border-emerald-500 text-emerald-600 dark:text-emerald-500 px-5 py-2 rounded-xl hover:text-white transition-all duration-300 text-sm"
                 >
                   <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity -z-10"></span>
                   <span className="relative flex items-center gap-2">
-                    <FaFileAlt className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                    <FaFileAlt className="w-3 h-3 group-hover:rotate-12 transition-transform" />
                     <span>CV'yi İncele</span>
-                    <RiSparkling2Fill className="w-4 h-4 text-emerald-500 group-hover:text-yellow-300 group-hover:animate-bounce transition-colors" />
+                    <RiSparkling2Fill className="w-3 h-3 text-emerald-500 group-hover:text-yellow-300 group-hover:animate-bounce transition-colors" />
                   </span>
                 </motion.a>
               </div>
@@ -109,7 +109,7 @@ const Hero = () => {
             transition={{ duration: 0.7, type: "spring", bounce: 0.3 }}
             className="flex justify-center items-center"
           >
-            <div className="relative w-[450px] h-[450px] md:w-[600px] md:h-[600px]">
+            <div className="relative w-[320px] h-[320px] md:w-[420px] md:h-[420px]">
               <motion.div
                 className="absolute inset-0"
                 initial={{ opacity: 0 }}
@@ -122,7 +122,7 @@ const Hero = () => {
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 450px, 600px"
+                  sizes="(max-width: 768px) 320px, 420px"
                   unoptimized
                 />
               </motion.div>
@@ -138,7 +138,7 @@ const Hero = () => {
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 450px, 600px"
+                  sizes="(max-width: 768px) 320px, 420px"
                   unoptimized
                 />
               </motion.div>

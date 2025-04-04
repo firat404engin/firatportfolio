@@ -8,11 +8,11 @@ import TechStack from '@/components/Home/TechStack';
 
 export default function Home() {
   return (
-    <div className="container mx-auto">
-      <div className="space-y-32">
+    <div className="container mx-auto max-w-[95%]">
+      <div className="space-y-16">
         <div id="home" className="scroll-mt-8">
           <Hero />
-          <div className="mt-16 -mx-4 md:-mx-8 lg:-mx-16">
+          <div className="mt-8 -mx-4 md:-mx-8 lg:-mx-16">
             <TechStack />
           </div>
         </div>
