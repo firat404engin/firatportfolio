@@ -124,7 +124,7 @@ const CryptoTicker = () => {
           }
         }
         .animate-scroll {
-          animation: scroll 1.5s linear infinite;
+          animation: scroll 2.5s linear infinite;
         }
         .animate-scroll:hover {
           animation-play-state: paused;
