@@ -26,10 +26,8 @@ export default function RootLayout({
         <Providers>
           <div className="min-h-screen flex flex-col relative">
             <Navbar />
-            <div className="fixed top-20 right-8 z-50">
-              <ThemeToggle />
-            </div>
-            <main className="flex-grow pt-28"> {/* Navbar için üstten padding */}
+            <ThemeToggle />
+            <main className="flex-grow pt-28">
               {children}
             </main>
             <Footer />

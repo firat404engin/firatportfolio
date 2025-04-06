@@ -90,11 +90,12 @@ const CryptoTicker = () => {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="flex items-center space-x-2 bg-white dark:bg-white/10 rounded-lg p-2 min-w-[140px] shadow-sm"
+      className="flex items-center space-x-2 bg-white dark:bg-white/10 rounded-lg p-2 shadow-sm shrink-0"
+      style={{ minWidth: '120px' }}
     >
       {getIcon(item.symbol)}
-      <div>
-        <div className="text-xs font-medium text-gray-600 dark:text-gray-300">{item.symbol}</div>
+      <div className="min-w-0">
+        <div className="text-xs font-medium text-gray-600 dark:text-gray-300 truncate">{item.symbol}</div>
         <div className="text-sm font-bold text-gray-900 dark:text-white">${item.price}</div>
         {item.change !== '0' && (
           <div className={`text-[10px] ${parseFloat(item.change) >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
@@ -107,12 +108,28 @@ const CryptoTicker = () => {
 
   return (
     <div className="w-full overflow-hidden bg-gray-100 dark:bg-white/5 backdrop-blur-sm rounded-lg p-1">
-      <div className="flex items-center space-x-2 animate-fast-scroll">
+      <div className="flex gap-2 animate-scroll">
         {/* İlk set */}
         {prices.map((item, index) => renderPriceItem(item, index))}
-        {/* Kopya set - sürekli akış için */}
+        {/* İkinci set - sürekli akış için */}
         {prices.map((item, index) => renderPriceItem(item, index + prices.length))}
       </div>
+      <style jsx global>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 2.5s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 };
