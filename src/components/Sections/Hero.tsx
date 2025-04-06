@@ -14,10 +14,10 @@ const Hero = () => {
   const hoverImage = "https://i.hizliresim.com/pi2j3rf.png?_gl=1*10cejmg*_ga*ODM2OTU4MjUuMTc0MTc3OTk3NQ..*_ga_M9ZRXYS2YN*MTc0Mzc2NTMxMC4yLjEuMTc0Mzc2NTM3NC42MC4wLjA.";
 
   return (
-    <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-16">
-      <div className="container mx-auto px-4 max-w-[90%]">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
+    <section className="min-h-screen flex items-center justify-center py-8 md:py-16">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4 w-full">
             <div className="mb-4 w-full">
               <CryptoTicker />
             </div>
@@ -107,9 +107,9 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, type: "spring", bounce: 0.3 }}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center w-full"
           >
-            <div className="relative w-[320px] h-[320px] md:w-[420px] md:h-[420px]">
+            <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] md:w-[420px] md:h-[420px]">
               <motion.div
                 className="absolute inset-0"
                 initial={{ opacity: 0 }}
@@ -122,7 +122,7 @@ const Hero = () => {
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 320px, 420px"
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
                   unoptimized
                 />
               </motion.div>
@@ -138,7 +138,7 @@ const Hero = () => {
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 320px, 420px"
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
                   unoptimized
                 />
               </motion.div>

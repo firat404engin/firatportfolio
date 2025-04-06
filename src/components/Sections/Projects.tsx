@@ -27,7 +27,13 @@ const Projects = () => {
   useEffect(() => {
     const fetchRepositories = async () => {
       try {
-        const response = await fetch('/api/github');
+        const response = await fetch('/api/github', {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch repositories');
         }
@@ -83,7 +89,7 @@ const Projects = () => {
           </span>
         </motion.p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {loading ? (
             <div className="col-span-full flex justify-center">
               <div className="relative w-10 h-10">
@@ -110,7 +116,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
+                className="group p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 flex flex-col h-full"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -121,11 +127,11 @@ const Projects = () => {
                   </div>
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-400 mb-3 flex-grow text-xs line-clamp-2">
+                <p className="text-gray-600 dark:text-gray-400 mb-3 flex-grow text-sm line-clamp-3">
                   {repo.description || 'Açıklama bulunmuyor'}
                 </p>
                 
-                <div className="flex items-center justify-between text-xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs mt-auto">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                       <FaStar className="w-3 h-3 text-yellow-500" />
