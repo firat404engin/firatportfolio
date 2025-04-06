@@ -10,8 +10,6 @@ export async function GET() {
       headers: {
         'Authorization': `bearer ${process.env.GITHUB_TOKEN}`,
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
       },
       body: JSON.stringify({
         query: `
@@ -37,8 +35,7 @@ export async function GET() {
             }
           }
         `
-      }),
-      cache: 'no-store'
+      })
     });
 
     if (!response.ok) {
@@ -60,12 +57,7 @@ export async function GET() {
       return NextResponse.json([]);
     }
     
-    return NextResponse.json(pinnedRepos, {
-      headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate',
-        'Pragma': 'no-cache'
-      }
-    });
+    return NextResponse.json(pinnedRepos);
   } catch (error) {
     console.error('GitHub API error:', error);
     return NextResponse.json(
