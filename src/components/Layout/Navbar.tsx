@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { RiHome4Line, RiUser3Line, RiCodeLine, RiMailLine, RiMenuLine, RiCloseLine } from 'react-icons/ri';
+import { RiHome4Line, RiUser3Line, RiCodeLine, RiMailLine, RiMenuLine, RiCloseLine, RiWalletLine } from 'react-icons/ri';
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
@@ -51,6 +51,7 @@ const Navbar = () => {
     { id: 'home', icon: RiHome4Line, label: 'Ana Sayfa' },
     { id: 'about', icon: RiUser3Line, label: 'Hakkımda' },
     { id: 'projects', icon: RiCodeLine, label: 'Projeler' },
+    { id: 'portfolio', icon: RiWalletLine, label: 'Portföy' },
     { id: 'contact', icon: RiMailLine, label: 'İletişim' },
   ];
 
