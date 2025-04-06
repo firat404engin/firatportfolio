@@ -18,7 +18,7 @@ const Portfolio = () => {
   const [portfolio, setPortfolio] = useState<CoinData[]>([
     {
       symbol: 'XRP',
-      buyPrice: 0.5,
+      buyPrice: 0.50458092,
       amount: 50.74,
       currentPrice: 0,
       totalValue: 0,
@@ -26,7 +26,7 @@ const Portfolio = () => {
     },
     {
       symbol: 'SHIB',
-      buyPrice: 0.00000850,
+      buyPrice: 0.00000851,
       amount: 461668.00,
       currentPrice: 0,
       totalValue: 0,
@@ -34,7 +34,7 @@ const Portfolio = () => {
     },
     {
       symbol: 'CHZ',
-      buyPrice: 0.02500,
+      buyPrice: 0.02576,
       amount: 59.16,
       currentPrice: 0,
       totalValue: 0,
