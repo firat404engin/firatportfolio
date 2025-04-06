@@ -1,30 +1,57 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SocialIcons from '../Layout/SocialIcons';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { RiSparkling2Fill } from 'react-icons/ri';
+// @ts-ignore
+import emailjs from '@emailjs/browser';
+import toast from 'react-hot-toast';
 
 const Contact = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    // EmailJS'i başlat
+    emailjs.init({
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+      limitRate: true
+    });
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
 
     try {
-      // Burada form gönderme işlemi yapılacak
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simüle edilmiş API çağrısı
-      setSubmitStatus('success');
-      setEmail('');
-      setMessage('');
+      if (!formRef.current) {
+        throw new Error('Form referansı bulunamadı');
+      }
+
+      const templateParams = {
+        user_name: formRef.current.user_name.value,
+        user_email: formRef.current.user_email.value,
+        message: formRef.current.message.value,
+      };
+
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      if (result.text === 'OK') {
+        toast.success('Mesajınız başarıyla gönderildi!');
+        formRef.current.reset();
+      } else {
+        throw new Error('Email gönderimi başarısız oldu');
+      }
     } catch (error) {
-      setSubmitStatus('error');
+      console.error('Email error:', error);
+      toast.error('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setIsSubmitting(false);
     }
@@ -61,44 +88,58 @@ const Contact = () => {
         </motion.p>
 
         <div className="mt-8 grid gap-8 md:grid-cols-2">
-        <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="p-6 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <FaGithub className="w-7 h-7 text-gray-900 dark:text-white" />
-                <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Sosyal Medya
-                  <RiSparkling2Fill className="inline-block ml-2 w-5 h-5 text-emerald-500 animate-bounce" />
-                </h4>
-              </div>
-              <div className="bg-white/50 dark:bg-gray-900/50 rounded-xl p-6">
-                <SocialIcons />
-              </div>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="p-6 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <FaGithub className="w-7 h-7 text-gray-900 dark:text-white" />
+              <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Sosyal Medya
+                <RiSparkling2Fill className="inline-block ml-2 w-5 h-5 text-emerald-500 animate-bounce" />
+              </h4>
+            </div>
+            <div className="bg-white/50 dark:bg-gray-900/50 rounded-xl p-6">
+              <SocialIcons />
+            </div>
+          </motion.div>
 
           <motion.form
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
+            ref={formRef}
             onSubmit={handleSubmit}
             className="space-y-4"
           >
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="user_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                İsim
+              </label>
+              <input
+                type="text"
+                name="user_name"
+                id="user_name"
+                required
+                className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
+                placeholder="Adınız Soyadınız"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="user_email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 E-posta
               </label>
               <input
                 type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="user_email"
+                id="user_email"
                 required
-                className="w-full px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg shadow-sm focus:ring-2 focus:ring-emerald-500 transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 text-sm"
+                className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
                 placeholder="ornek@email.com"
               />
             </div>
@@ -108,44 +149,37 @@ const Contact = () => {
                 Mesaj
               </label>
               <textarea
+                name="message"
                 id="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
                 required
                 rows={4}
-                className="w-full px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg shadow-sm focus:ring-2 focus:ring-emerald-500 transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 text-sm resize-none"
-                placeholder="Mesajınızı yazın..."
+                className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 resize-none"
+                placeholder="Mesajınız..."
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
-            >
-              {isSubmitting ? (
-                <div className="flex items-center justify-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  <span>Gönderiliyor...</span>
-                </div>
-              ) : submitStatus === 'success' ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Gönderildi!</span>
+            <div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-medium hover:opacity-90 transition-all duration-300 relative group disabled:opacity-70"
+              >
+                <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></span>
+                <span className="relative flex items-center justify-center gap-2">
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                      <span>Gönderiliyor...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Gönder</span>
+                      <RiSparkling2Fill className="w-4 h-4 text-yellow-300 animate-bounce" />
+                    </>
+                  )}
                 </span>
-              ) : submitStatus === 'error' ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  <span>Hata oluştu, tekrar deneyin</span>
-                </span>
-              ) : (
-                'Gönder'
-              )}
-            </button>
+              </button>
+            </div>
           </motion.form>
         </div>
       </motion.div>
