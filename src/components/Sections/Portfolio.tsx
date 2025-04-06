@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { RiSparkling2Fill } from 'react-icons/ri';
-import { FaBitcoin } from 'react-icons/fa';
-import { SiRipple, SiChainlink } from 'react-icons/si';
+import Image from 'next/image';
 
 interface CoinData {
   symbol: string;
@@ -76,16 +75,23 @@ const Portfolio = () => {
   }, []);
 
   const getCoinIcon = (symbol: string) => {
-    switch (symbol) {
-      case 'XRP':
-        return <SiRipple className="w-6 h-6 text-[#23292F] dark:text-gray-300" />;
-      case 'SHIB':
-        return <FaBitcoin className="w-6 h-6 text-[#F7931A]" />;
-      case 'CHZ':
-        return <SiChainlink className="w-6 h-6 text-[#2A5ADA]" />;
-      default:
-        return null;
-    }
+    const iconUrls: { [key: string]: string } = {
+      'XRP': 'https://static-00.iconduck.com/assets.00/xrp-cryptocurrency-icon-2048x2048-vrpr3v04.png',
+      'SHIB': 'https://cryptologos.cc/logos/shiba-inu-shib-logo.png',
+      'CHZ': 'https://cryptologos.cc/logos/chiliz-chz-logo.png'
+    };
+
+    return (
+      <div className="relative w-8 h-8">
+        <Image
+          src={iconUrls[symbol]}
+          alt={`${symbol} icon`}
+          fill
+          className="object-contain"
+          unoptimized
+        />
+      </div>
+    );
   };
 
   return (
