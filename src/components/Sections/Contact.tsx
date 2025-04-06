@@ -15,10 +15,7 @@ const Contact = () => {
 
   useEffect(() => {
     // EmailJS'i başlat
-    emailjs.init({
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-      limitRate: true
-    });
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
