@@ -77,7 +77,7 @@ const Portfolio = () => {
   const getCoinIcon = (symbol: string) => {
     const iconUrls: { [key: string]: string } = {
       'XRP': 'https://static-00.iconduck.com/assets.00/xrp-cryptocurrency-icon-2048x2048-vrpr3v04.png',
-      'SHIB': 'https://cryptologos.cc/logos/shiba-inu-shib-logo.png',
+      'SHIB': 'https://upload.wikimedia.org/wikipedia/tr/5/51/Shiba_coin_logo.png',
       'CHZ': 'https://cryptologos.cc/logos/chiliz-chz-logo.png'
     };
 
